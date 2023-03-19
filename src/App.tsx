@@ -7,11 +7,6 @@ import UserMessage from './components/UserMessage'
 import BotMessage from './components/BotMessage'
 import Loading from './components/Loading'
 
-const configuration = new Configuration({
-  apiKey: "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"
-});
-
-const openai = new OpenAIApi(configuration);
 
 function App() {
   const [chat, setChat] = useState<ChatCompletionRequestMessage[]>()
