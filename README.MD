@@ -6,9 +6,7 @@ It allows you to chat with the model and see the results in real time.
 The web app also allows for syntax highlighting on code blocks to make it easy to use and readable.
 
 The web app uses a proxy server to make API calls using the OpenAI API
-The repo for the server side code can be found here: 
-
-[GitHub]("https://github.com/Giac3/freeGPT-server", "ServerSide Code")
+The repo for the server side code can be found here: <a href="https://github.com/Giac3/freeGPT-server">Server</a>
 
 ## If you want to run this locally:
 
@@ -27,8 +25,7 @@ Then Clone the front-end code and run the following commands:
 
 # Check Out the Live version
 
-1. Go to 
-[freeGPT]("https://freegptai.com/", "Web App")
+1. Go to <a href="https://freegptai.com/">FreeGPT</a>
 2. Type in your message
 3. Press enter or click the send button
 4. Wait for the model to respond
