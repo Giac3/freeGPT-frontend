@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import { OpenAIApi, Configuration, ChatCompletionRequestMessage } from 'openai'
+
+import {  ChatCompletionRequestMessage } from 'openai'
 import { BsSend } from 'react-icons/bs'
 import UserMessage from './components/UserMessage'
 import BotMessage from './components/BotMessage'
@@ -71,7 +70,7 @@ function App() {
 
   return (
     <div className="bg-gray-100 w-screen h-screen fixed flex items-center justify-center flex-col">
-      <div className=' w-[800px] h-10 mb-2'>
+      <div className=' max-w-[800px] min-w-[350px] w-full h-10 mb-2'>
       <Select defaultValue='gpt-3.5-turbo'>
         <SelectTrigger className="w-[180px]">
           <SelectValue placeholder="Model" />
@@ -89,7 +88,8 @@ function App() {
         </SelectContent>
       </Select>
       </div>
-      <div className='bg-gray-300 w-[800px] h-[600px] rounded-md shadow-md p-2 flex flex-col gap-4 overflow-y-auto'>
+      
+      <div className='bg-gray-300 w-full max-w-[800px] min-w-[350px] h-[600px] rounded-md shadow-md p-2 flex flex-col gap-4 overflow-y-auto'>
         {
           chat! ? null : <h1 className=' w-full h-full flex items-center justify-center text-3xl text-gray-50 opacity-50'>FreeGPT</h1>  
         }
@@ -105,8 +105,8 @@ function App() {
         }
         
       </div>
-      <div className='flex items-center justify-center shadow-sm pt-4'>
-      <input placeholder='Type Something...' ref={messageRef} className='w-[500px] outline-none h-12 rounded-md rounded-tr-none rounded-br-none p-2'/>
+      <div className='flex items-center justify-center shadow-sm pt-4 w-full max-w-[500px] min-w-[350px]'>
+      <input placeholder='Type Something...' ref={messageRef} className=' w-full outline-none h-12 rounded-md rounded-tr-none rounded-br-none p-2'/>
       <button onClick={handleSendMessage} className='h-12 w-12 bg-gray-200 rounded-tr-md hover:bg-gray-300 duration-300 hover:text-white rounded-br-md flex items-center justify-center'>
         <BsSend className='w-5 h-5'/>
       </button>
