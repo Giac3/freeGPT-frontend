@@ -6,7 +6,14 @@ import { BsSend } from 'react-icons/bs'
 import UserMessage from './components/UserMessage'
 import BotMessage from './components/BotMessage'
 import Loading from './components/Loading'
-
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { FaLock } from 'react-icons/fa'
 
 function App() {
   const [chat, setChat] = useState<ChatCompletionRequestMessage[]>()
@@ -16,22 +23,19 @@ function App() {
 
   const getComp = async (messages:ChatCompletionRequestMessage[]) => {
     try {
-      const res = await fetch("https://freegpt-server-production.up.railway.app/api", {
+      const body = {
+        messages: messages
+      }
+      const res = await fetch("https://go-api-production-859d.up.railway.app/chatCompletion", {
         method: 'POST', 
-        mode: 'cors', 
-        cache: 'no-cache', 
-        credentials: 'same-origin', 
         headers: {
-          'Content-Type': 'application/json'
-          
-        },
-        redirect: 'follow', 
-        referrerPolicy: 'no-referrer', 
-        body: JSON.stringify(messages) 
+          'Content-Type': 'application/json',
+        },        
+        body: JSON.stringify(body) 
       })
       const data = await res.json()
-      let reply:string = data.message.content
-      setChat((prev) => [...prev!, {"role": "assistant", "content": reply}])
+      console.log(data)
+      setChat((prev) => [...prev!, data])
       setLoading(false)
     } catch (error) {
       let reply:string = "Sorry there was an issue please try again"
@@ -66,8 +70,25 @@ function App() {
   
 
   return (
-    <div className="bg-gray-100 w-screen h-screen fixed flex items-center justify-center flex-col gap-10">
-      
+    <div className="bg-gray-100 w-screen h-screen fixed flex items-center justify-center flex-col">
+      <div className=' w-[800px] h-10 mb-2'>
+      <Select defaultValue='gpt-3.5-turbo'>
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder="Model" />
+        </SelectTrigger>
+        <SelectContent >
+          <div className='flex items-center justify-center opacity-40'>
+          <FaLock className='ml-2'/>
+          <SelectItem disabled className='pl-3' value="gpt-4"> gpt-4</SelectItem>
+          </div>
+          <SelectItem value="gpt-3.5-turbo">gpt-3.5-turbo</SelectItem>
+          <div className='flex items-center justify-center opacity-40'>
+          <FaLock className='ml-2'/>
+          <SelectItem disabled className='pl-3' value="gpt-3.5-turbo-16k">gpt-3.5-turbo-16k</SelectItem>
+          </div>
+        </SelectContent>
+      </Select>
+      </div>
       <div className='bg-gray-300 w-[800px] h-[600px] rounded-md shadow-md p-2 flex flex-col gap-4 overflow-y-auto'>
         {
           chat! ? null : <h1 className=' w-full h-full flex items-center justify-center text-3xl text-gray-50 opacity-50'>FreeGPT</h1>  
@@ -84,7 +105,7 @@ function App() {
         }
         
       </div>
-      <div className='flex items-center justify-center shadow-sm'>
+      <div className='flex items-center justify-center shadow-sm pt-4'>
       <input placeholder='Type Something...' ref={messageRef} className='w-[500px] outline-none h-12 rounded-md rounded-tr-none rounded-br-none p-2'/>
       <button onClick={handleSendMessage} className='h-12 w-12 bg-gray-200 rounded-tr-md hover:bg-gray-300 duration-300 hover:text-white rounded-br-md flex items-center justify-center'>
         <BsSend className='w-5 h-5'/>
